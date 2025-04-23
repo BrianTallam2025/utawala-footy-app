@@ -1,8 +1,62 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Contact() {
+  const [subject, setSubject] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    // Simulate sending a message (in a real app, you'd send this data to your backend)
+    await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network request
+
+    setIsSubmitting(false);
+    toast.success('Message sent successfully!', {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
+
+    // Clear the form after successful submission
+    setSubject('');
+    setName('');
+    setEmail('');
+    setMessage('');
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    switch (id) {
+      case 'subject':
+        setSubject(value);
+        break;
+      case 'name':
+        setName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'message':
+        setMessage(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="bg-gray-100 py-16">
+      <ToastContainer />
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 px-4 sm:px-6 lg:px-8">
         <div>
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Get in Touch</h2>
@@ -21,7 +75,7 @@ function Contact() {
         </div>
         <div className="bg-white shadow-md rounded-lg p-6">
           <h3 className="text-xl font-semibold text-gray-800 mb-4">Send us a Message</h3>
-          <form className="space-y-4">
+          <form className="space-y-4" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="subject" className="block text-gray-700 text-sm font-bold mb-2">
                 Subject
@@ -31,6 +85,9 @@ function Contact() {
                 id="subject"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Subject of your message"
+                value={subject}
+                onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -42,6 +99,9 @@ function Contact() {
                 id="name"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Your Name"
+                value={name}
+                onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -53,6 +113,9 @@ function Contact() {
                 id="email"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Your Email"
+                value={email}
+                onChange={handleChange}
+                required
               />
             </div>
             <div>
@@ -64,13 +127,17 @@ function Contact() {
                 rows="6"
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 placeholder="Your Message"
+                value={message}
+                onChange={handleChange}
+                required
               ></textarea>
             </div>
             <button
               type="submit"
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+              disabled={isSubmitting}
             >
-              Submit
+              {isSubmitting ? 'Sending...' : 'Submit'}
             </button>
           </form>
         </div>

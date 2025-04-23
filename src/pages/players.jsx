@@ -11,13 +11,13 @@ function Players() {
   useEffect(() => {
     const fetchPlayers = async () => {
       try {
-        const response = await fetch('http://localhost:3001/players');
+        const response = await fetch('https://utawala-footy-app.onrender.com/players');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
         const data = await response.json();
         setPlayers(data);
-        setFilteredPlayers(data); // Initially, filtered list is the same as the full list
+        setFilteredPlayers(data); 
         setLoading(false);
       } catch (error) {
         setError(error.message);

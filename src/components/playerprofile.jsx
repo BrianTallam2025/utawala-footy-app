@@ -16,7 +16,7 @@ function PlayerProfile() {
   useEffect(() => {
     const fetchPlayer = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/players/${id}`);
+        const response = await fetch(`https://utawala-footy-app.onrender.com/players/${id}`);
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -53,7 +53,7 @@ function PlayerProfile() {
   const handleUpdatePlayer = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:3001/players/${id}`, {
+      const response = await fetch(`https://utawala-footy-app.onrender.com/players/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ function PlayerProfile() {
     });
 
     try {
-      const response = await fetch(`http://localhost:3001/players/${id}`, {
+      const response = await fetch(`https://utawala-footy-app.onrender.com/players/${id}`, {
         method: 'DELETE',
       });
 

@@ -32,7 +32,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3001/players', {
+      const response = await fetch('https://utawala-footy-app.onrender.com/players', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,17 +46,15 @@ function Register() {
           firstName: '', lastName: '', dateOfBirth: '', ageBracket: '', preferredPosition: '', preferredFoot: '', height: '', weight: '', nationality: '', previousClubs: '', contactNumber: '', email: '', profilePictureUrl: '', additionalNotes: ''
         });
         toast.success('Player registered successfully!', {
-          style: { backgroundColor: '#C8E6C9', color: '#1B5E20' }, // Light green background, dark green text
+          style: { backgroundColor: '#C8E6C9', color: '#1B5E20' }, 
         });
       } else {
         console.error('Failed to register player:', response.status);
-        toast.error('Failed to register player.'); // Default error toast
-        // Handle error feedback if needed, e.g., display a more specific message based on response.status
+        toast.error('Failed to register player.'); 
       }
     } catch (error) {
       console.error('Error registering player:', error);
-      toast.error('Error registering player.'); // Default error toast for network issues
-      // Handle network error feedback
+      toast.error('Error registering player.'); 
     }
   };
 
